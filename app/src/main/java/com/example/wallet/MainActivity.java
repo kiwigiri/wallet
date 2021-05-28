@@ -17,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         Tarjetas tarjetas = new Tarjetas();
 
-        Debito d1 = new Debito(1,"5285   0321   1596   6724", BancoEmisor.COOPERTARIVA_COOPEUCH,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),200000);
+        Debito d1 = new Debito(1,"5285   0321   1596   6724",BancoEmisor.COOPERTARIVA_COOPEUCH,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),200000);
         Debito d2 = new Debito(2,"8246   8164   0314   9734",BancoEmisor.BANCO_BICE,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),10000);
         Debito d3 = new Debito(3,"1547   3016   9463   3174",BancoEmisor.BANCO_CHILE,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),200000);
         Debito d4 = new Debito(4,"9463   8462   8234   3791",BancoEmisor.BANCO_ESTADO,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),10000);
@@ -57,6 +59,24 @@ public class MainActivity extends AppCompatActivity {
         TarjetaAdapter tarjetaAdapter = new TarjetaAdapter(getApplicationContext(),tarjetas.getTarjetas());
 
         listView.setAdapter(tarjetaAdapter);
+
+        /*
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getApplicationContext(),tarjetas.getTarjetas().get(position).getBancoEmisor().toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    */
+
+
+
+
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
