@@ -11,6 +11,7 @@
         android:layout_height="200dp">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:background="@color/grisdefault"
             android:orientation="vertical"
             android:layout_width="match_parent"

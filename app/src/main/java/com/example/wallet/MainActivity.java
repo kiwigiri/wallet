@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         tarjetas.addTarjeta(c1);
         tarjetas.addTarjeta(c2);
 
-        TarjetaAdapter tarjetaAdapter = new TarjetaAdapter(getApplicationContext(),tarjetas.getTarjetas());
+        TarjetaAdapter tarjetaAdapter = new TarjetaAdapter(this,tarjetas.getTarjetas());
 
         listView.setAdapter(tarjetaAdapter);
 
