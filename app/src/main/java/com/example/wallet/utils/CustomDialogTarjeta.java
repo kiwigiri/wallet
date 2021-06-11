@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -42,12 +41,7 @@ public class CustomDialogTarjeta extends Dialog {
         idTarjeta.setText(tarjeta.getNumTarjeta());
         nombreUsuario.setText(tarjeta.getCliente().getNombre());
 
-        nombreUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        nombreUsuario.setOnClickListener(v -> dismiss());
 
     }
 

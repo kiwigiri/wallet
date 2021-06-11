@@ -2,7 +2,8 @@ package com.example.wallet;
 
 import android.os.Bundle;
 
-import com.example.wallet.adapters.TarjetaAdapter;
+import com.example.wallet.adapters.MyItemTouchHelperCallback;
+import com.example.wallet.adapters.recyclerview.TarjetaAdapter;
 import com.example.wallet.bean.BancoEmisor;
 import com.example.wallet.bean.Cliente;
 import com.example.wallet.bean.Credito;
@@ -15,6 +16,8 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +28,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView;
+    //private ListView listView;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private ItemTouchHelper itemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        listView = findViewById(R.id.listview);
+        recyclerView = findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(this);
 
         Tarjetas tarjetas = new Tarjetas();
 
@@ -57,9 +64,15 @@ public class MainActivity extends AppCompatActivity {
         tarjetas.addTarjeta(c1);
         tarjetas.addTarjeta(c2);
 
-        TarjetaAdapter tarjetaAdapter = new TarjetaAdapter(this,tarjetas.getTarjetas());
+        TarjetaAdapter tarjetaAdapter = new TarjetaAdapter(tarjetas.getTarjetas());
 
-        listView.setAdapter(tarjetaAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(tarjetaAdapter);
+
+        itemTouchHelper = new ItemTouchHelper(new MyItemTouchHelperCallback(tarjetaAdapter));
+
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
 
         /*
 
