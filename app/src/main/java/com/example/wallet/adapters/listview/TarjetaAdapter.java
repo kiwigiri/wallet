@@ -1,4 +1,4 @@
-package com.example.wallet.adapters;
+package com.example.wallet.adapters.listview;
 
 import android.app.Activity;
 import android.content.Context;
