@@ -1,4 +1,4 @@
-package com.example.wallet.adapters;
+package com.example.wallet.adapters.support;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -15,7 +15,7 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-        int swipeFlags = ItemTouchHelper.LEFT;
+        int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
 
         return makeMovementFlags(dragFlags,swipeFlags);
     }
@@ -29,7 +29,14 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+
+        if(ItemTouchHelper.LEFT == direction){
+            mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+        }else{
+            mAdapter.onItemDismissFavorite(viewHolder.getAdapterPosition());
+        }
+
+
 
     }
 

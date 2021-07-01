@@ -5,9 +5,8 @@ public class Credito extends TarjetaBancaria{
     private double cupoNacional;
     private double gastoNacional;
 
-
-    public Credito(int nIdentificador, String numTarjeta, BancoEmisor bancoEmisor, Cliente cliente, NombreTarjeta nt, double cupoNacional, double gastoNacional) {
-        super(nIdentificador, numTarjeta, bancoEmisor, cliente);
+    public Credito(int nIdentificador, String numTarjeta, BancoEmisor bancoEmisor, Cliente cliente, boolean favorite, NombreTarjeta nt, double cupoNacional, double gastoNacional) {
+        super(nIdentificador, numTarjeta, bancoEmisor, cliente, favorite);
         this.nt = nt;
         this.cupoNacional = cupoNacional;
         this.gastoNacional = gastoNacional;

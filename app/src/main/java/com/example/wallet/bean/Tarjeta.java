@@ -4,10 +4,11 @@ public class Tarjeta {
     private int nIdentificador;
     private String numTarjeta;
 
-    public Tarjeta(int nIdentificador,String numTarjeta) {
+    public Tarjeta(int nIdentificador, String numTarjeta) {
         this.nIdentificador = nIdentificador;
         this.numTarjeta = numTarjeta;
     }
+
 
     public Tarjeta() {
     }

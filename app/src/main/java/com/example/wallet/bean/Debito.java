@@ -5,8 +5,8 @@ public class Debito extends TarjetaBancaria{
     private double saldo;
 
 
-    public Debito(int nIdentificador, String numTarjeta, BancoEmisor bancoEmisor, Cliente cliente, double saldo) {
-        super(nIdentificador, numTarjeta, bancoEmisor, cliente);
+    public Debito(int nIdentificador, String numTarjeta, BancoEmisor bancoEmisor, Cliente cliente, boolean favorite, double saldo) {
+        super(nIdentificador, numTarjeta, bancoEmisor, cliente, favorite);
         this.saldo = saldo;
     }
 

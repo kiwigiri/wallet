@@ -3,24 +3,26 @@ package com.example.wallet.adapters.recyclerview;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wallet.R;
-import com.example.wallet.adapters.IItemTouchHelperAdapter;
+import com.example.wallet.adapters.support.IItemTouchHelperAdapter;
 import com.example.wallet.bean.TarjetaBancaria;
 import com.example.wallet.utils.Util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 public class TarjetaAdapter extends RecyclerView.Adapter<TarjetaAdapter.TarjetaViewHolder> implements IItemTouchHelperAdapter {
 
-    private ArrayList<TarjetaBancaria> tarjetas;
+    private LinkedList<TarjetaBancaria> tarjetas;
 
-    public TarjetaAdapter(ArrayList<TarjetaBancaria> tarjetas){
+    public TarjetaAdapter(LinkedList<TarjetaBancaria> tarjetas){
         this.tarjetas = tarjetas;
     }
 
@@ -41,15 +43,34 @@ public class TarjetaAdapter extends RecyclerView.Adapter<TarjetaAdapter.TarjetaV
 
     }
 
+    @Override
+    public void onItemDismissFavorite(int position) {
+
+        TarjetaBancaria aux = tarjetas.get(position);
+        boolean favorite = aux.isFavorite();
+        tarjetas.get(position).setFavorite(!favorite);
+
+        if(!aux.isFavorite()){
+            notifyItemChanged(position);
+        }else{
+            tarjetas.addFirst(aux);
+            tarjetas.remove(position+1);
+            notifyDataSetChanged();
+        }
+
+    }
+
 
     public class TarjetaViewHolder extends RecyclerView.ViewHolder{
 
         private TextView idTarjeta,fechaTarjeta,nombreUsuario;
+        private ImageView favorito;
         public TarjetaViewHolder(@NonNull View view) {
             super(view);
             this.idTarjeta = view.findViewById(R.id.numtarjeta);
             this.fechaTarjeta = view.findViewById(R.id.fechatarjeta);
             this.nombreUsuario = view.findViewById(R.id.nombreUsu);
+            this.favorito = view.findViewById(R.id.favorite);
 
         }
     }
@@ -72,6 +93,13 @@ public class TarjetaAdapter extends RecyclerView.Adapter<TarjetaAdapter.TarjetaV
         holder.nombreUsuario.setText(tb.getCliente().getNombre());
 
         holder.idTarjeta.setText(tb.getNumTarjeta());
+
+        if(tb.isFavorite()){
+            holder.favorito.setVisibility(View.VISIBLE);
+        }else{
+            holder.favorito.setVisibility(View.INVISIBLE);
+        }
+
 
 
     }
