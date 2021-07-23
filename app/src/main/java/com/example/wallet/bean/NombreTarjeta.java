@@ -2,5 +2,11 @@ package com.example.wallet.bean;
 
 public enum NombreTarjeta {
 
-    Visa,MasterCard
+    VISA,
+    MASTERCARD,
+    AMERICANEXPRESS,
+    DISCOVER,
+    JCB,
+    DINNERSCLUB,
+    UNDEFINED
 }

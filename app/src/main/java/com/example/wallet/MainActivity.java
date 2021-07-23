@@ -1,5 +1,7 @@
 package com.example.wallet;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.wallet.adapters.support.MyItemTouchHelperCallback;
@@ -11,6 +13,7 @@ import com.example.wallet.bean.Debito;
 import com.example.wallet.bean.NombreTarjeta;
 import com.example.wallet.bean.TarjetaBancaria;
 import com.example.wallet.colecciones.Tarjetas;
+import com.example.wallet.persistencia.BaseSqlite;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -44,7 +47,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
 
-        Tarjetas tarjetas = new Tarjetas();
+        BaseSqlite bs = new BaseSqlite(getApplicationContext());
+        Tarjetas tarjetas = bs.obtenerTarjetas();
+
+
+
+        /*
 
         Debito d1 = new Debito(1,"5285   0321   1596   6724",BancoEmisor.COOPERTARIVA_COOPEUCH,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false,200000);
         Debito d2 = new Debito(2,"8246   8164   0314   9734",BancoEmisor.BANCO_BICE,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false,10000);
@@ -64,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
         tarjetas.addTarjeta(c1);
         tarjetas.addTarjeta(c2);
+        */
+
 
         LinkedList<TarjetaBancaria> tarjetaBancariaLinkedList = new LinkedList<>();
         tarjetaBancariaLinkedList.addAll(tarjetas.getTarjetas());
@@ -81,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(v -> Toast.makeText(getApplicationContext(),"Cantidad de tarjetas Debito: "+tarjetas.obtenerCantidadTDebito(),Toast.LENGTH_SHORT).show());
-        fab.setOnClickListener(view -> Snackbar.make(view, "Tarjetas Debito: "+tarjetas.obtenerCantidadTDebito(), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(),RegistrarTarjetaActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
