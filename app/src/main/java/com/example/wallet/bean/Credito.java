@@ -1,20 +1,23 @@
 package com.example.wallet.bean;
 
 public class Credito extends TarjetaBancaria{
-    private NombreTarjeta nt;
     private double cupoNacional;
     private double gastoNacional;
 
     public Credito(int nIdentificador, String numTarjeta, BancoEmisor bancoEmisor, Cliente cliente, boolean favorite, NombreTarjeta nt, double cupoNacional, double gastoNacional) {
         super(nIdentificador, numTarjeta, bancoEmisor, cliente, favorite);
-        this.nt = nt;
+
         this.cupoNacional = cupoNacional;
         this.gastoNacional = gastoNacional;
     }
 
-    public Credito(BancoEmisor bancoEmisor, Cliente cliente, NombreTarjeta nt, double cupoNacional, double gastoNacional) {
+    public Credito(TarjetaBancaria tb ,double cupoNacional, double gastoNacional) {
+        super((int) tb.getnIdentificador(), tb.getNumTarjeta(), tb.getBancoEmisor(), tb.getCliente(), tb.isFavorite(), tb.getCv(), tb.getFecha(), tb.getNombreTarjeta());
+        this.cupoNacional = cupoNacional;
+        this.gastoNacional = gastoNacional;
+    }
+    public Credito(BancoEmisor bancoEmisor, Cliente cliente, double cupoNacional, double gastoNacional) {
         super(bancoEmisor, cliente);
-        this.nt = nt;
         this.cupoNacional = cupoNacional;
         this.gastoNacional = gastoNacional;
     }
@@ -22,19 +25,12 @@ public class Credito extends TarjetaBancaria{
     @Override
     public String toString() {
         return "Credito{" +
-                "nt=" + nt +
+                "nt="+
                 ", cupoNacional=" + cupoNacional +
                 ", gastoNacional=" + gastoNacional +
                 '}';
     }
 
-    public NombreTarjeta getNt() {
-        return nt;
-    }
-
-    public void setNt(NombreTarjeta nt) {
-        this.nt = nt;
-    }
 
     public double getCupoNacional() {
         return cupoNacional;

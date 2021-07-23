@@ -10,6 +10,11 @@ public class Debito extends TarjetaBancaria{
         this.saldo = saldo;
     }
 
+    public Debito(TarjetaBancaria tb,double saldo) {
+        super((int) tb.getnIdentificador(), tb.getNumTarjeta(), tb.getBancoEmisor(), tb.getCliente(), tb.isFavorite(), tb.getCv(), tb.getFecha(), tb.getNombreTarjeta());
+        this.saldo = saldo;
+    }
+
     public Debito(BancoEmisor bancoEmisor, Cliente cliente, double saldo) {
         super(bancoEmisor, cliente);
         this.saldo = saldo;
