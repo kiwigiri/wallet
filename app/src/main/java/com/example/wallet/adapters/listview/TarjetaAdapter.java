@@ -53,7 +53,7 @@ public class TarjetaAdapter extends ArrayAdapter<TarjetaBancaria> {
 
         TarjetaBancaria tarjeta = getItem(position);
 
-        convertView = LayoutInflater.from(getContext()).inflate(Util.getType(tarjeta),parent,false);
+        convertView = LayoutInflater.from(getContext()).inflate(Util.getType(),parent,false);
 
         TarjetaBancariaViewHolder tarjetaBancariaViewHolder = new TarjetaBancariaViewHolder(convertView);
         tarjetaBancariaViewHolder.nombreUsuario.setText(tarjeta.getCliente().getNombre());
@@ -72,7 +72,7 @@ public class TarjetaAdapter extends ArrayAdapter<TarjetaBancaria> {
             @Override
             public boolean onLongClick(View v) {
 
-                CustomDialogTarjeta cdt = new CustomDialogTarjeta(getContext(),Util.getType(tarjeta),tarjeta);
+                CustomDialogTarjeta cdt = new CustomDialogTarjeta(getContext(),Util.getType(),tarjeta);
                 cdt.show();
 
 

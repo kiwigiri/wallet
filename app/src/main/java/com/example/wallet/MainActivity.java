@@ -17,6 +17,7 @@ import com.example.wallet.persistencia.BaseSqlite;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ItemTouchHelper itemTouchHelper;
-
+    LinkedList<TarjetaBancaria> tarjetaBancariaLinkedList;
+    TarjetaAdapter tarjetaAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,35 +52,10 @@ public class MainActivity extends AppCompatActivity {
         BaseSqlite bs = new BaseSqlite(getApplicationContext());
         Tarjetas tarjetas = bs.obtenerTarjetas();
 
-
-
-        /*
-
-        Debito d1 = new Debito(1,"5285   0321   1596   6724",BancoEmisor.COOPERTARIVA_COOPEUCH,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false,200000);
-        Debito d2 = new Debito(2,"8246   8164   0314   9734",BancoEmisor.BANCO_BICE,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false,10000);
-        Debito d3 = new Debito(3,"1547   3016   9463   3174",BancoEmisor.BANCO_CHILE,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false,200000);
-        Debito d4 = new Debito(4,"9463   8462   8234   3791",BancoEmisor.BANCO_ESTADO,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false,10000);
-        Debito d5 = new Debito(5,"9347   0347   1596   8541",BancoEmisor.BANCO_FALABELLA,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false,200000);
-
-
-        Credito c1 = new Credito(7,"1348   6702   6741   9765",BancoEmisor.BANCO_CHILE,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"), false,NombreTarjeta.Visa,400000,10000);
-        Credito c2 = new Credito(7,"8763   5034   9756   3487",BancoEmisor.BANCO_FALABELLA,new Cliente(123456789,"MARIA TERESA HENRIQUEZ"),false, NombreTarjeta.MasterCard,400000,10000);
-
-        tarjetas.addTarjeta(d1);
-        tarjetas.addTarjeta(d2);
-        tarjetas.addTarjeta(d3);
-        tarjetas.addTarjeta(d4);
-        tarjetas.addTarjeta(d5);
-
-        tarjetas.addTarjeta(c1);
-        tarjetas.addTarjeta(c2);
-        */
-
-
-        LinkedList<TarjetaBancaria> tarjetaBancariaLinkedList = new LinkedList<>();
+        tarjetaBancariaLinkedList = new LinkedList<>();
         tarjetaBancariaLinkedList.addAll(tarjetas.getTarjetas());
 
-        TarjetaAdapter tarjetaAdapter = new TarjetaAdapter(tarjetaBancariaLinkedList);
+        tarjetaAdapter = new TarjetaAdapter(tarjetaBancariaLinkedList);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(tarjetaAdapter);
@@ -93,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(v -> Toast.makeText(getApplicationContext(),"Cantidad de tarjetas Debito: "+tarjetas.obtenerCantidadTDebito(),Toast.LENGTH_SHORT).show());
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(),RegistrarTarjetaActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent,0);
         });
     }
 
@@ -117,5 +94,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==500){//debito
+            Debito tb = (Debito) data.getSerializableExtra("tb");
+            tarjetaBancariaLinkedList.addFirst(tb);
+            tarjetaAdapter.notifyDataSetChanged();
+
+        }
+
+        if(resultCode==600){//credito
+            Credito tb = (Credito) data.getSerializableExtra("tb");
+            tarjetaBancariaLinkedList.addFirst(tb);
+            tarjetaAdapter.notifyDataSetChanged();
+
+        }
     }
 }

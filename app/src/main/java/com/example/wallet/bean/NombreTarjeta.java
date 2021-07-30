@@ -1,6 +1,8 @@
 package com.example.wallet.bean;
 
-public enum NombreTarjeta {
+import java.io.Serializable;
+
+public enum NombreTarjeta implements Serializable {
 
     VISA,
     MASTERCARD,

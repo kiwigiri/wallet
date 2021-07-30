@@ -1,6 +1,10 @@
 package com.example.wallet.bean;
 
-public class Fecha {
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class Fecha implements Serializable {
 
     private String mes;
     private String anio;
@@ -8,6 +12,12 @@ public class Fecha {
     public Fecha(String mes, String anio) {
         this.mes = mes;
         this.anio = anio;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.mes+"/"+anio;
     }
 
     public String getMes() {

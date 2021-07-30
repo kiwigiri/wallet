@@ -1,6 +1,8 @@
 package com.example.wallet.bean;
 
-public class Tarjeta {
+import java.io.Serializable;
+
+public class Tarjeta implements Serializable {
     private int nIdentificador;
     private String numTarjeta;
 

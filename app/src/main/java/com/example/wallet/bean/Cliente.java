@@ -1,6 +1,8 @@
 package com.example.wallet.bean;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
 
     private int rut;
     private String nombre;

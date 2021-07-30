@@ -1,6 +1,8 @@
 package com.example.wallet.bean;
 
-public class Credito extends TarjetaBancaria{
+import java.io.Serializable;
+
+public class Credito extends TarjetaBancaria implements Serializable {
     private double cupoNacional;
     private double gastoNacional;
 
