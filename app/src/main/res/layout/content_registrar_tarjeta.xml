@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <com.fevziomurtekin.payview.Payview
+        android:id="@+id/payview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardNameOwnerText="nombre apellido"
+        app:cardYearHintText="Año"
+        app:cardCvHintText="CV"
+        app:cardBtnPayText="Guardar"
+        app:cardMonthHintText="Mes"
+        app:cardNameHintText="Nombre"
+        app:cardNoHintText="N tarjeta"
+        app:cardBgColor="@android:color/white"
+        app:cardFgColor="@color/grisdefault"
+        app:cardTextColor="@color/white"
+        app:cardNameHelperText="Ingresa el nombre de tu tarjeta"
+        app:cardCvTextSize="14"
+        app:cardNoTextSize="14"
+        app:cardNumberHelperText="Ingresa el número de tu tarjeta"
+        app:cardYearTextSize="13"
+        app:cardNameTextSize="15"
+        app:cardMonthTextSize="13"
+        app:cardAnimationType="vertical"
+        app:cardCvErrorText="You must enter 3-digit characters"
+        app:cardMonthErrorText="You must enter 2-digit characters and you'll enter to number the most digit-value is '12'"
+        app:cardYearErrorText="You must enter 2-digit characters and you'll enter to number the most digit-value is '99'"
+        app:cardExpiredErrorText="Your card has expired. Please enter the usage date correctly."
+        />
+
+
+
+
+</LinearLayout>

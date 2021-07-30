@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+
+    <TextView
+        android:text="Tipo Tarjeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RadioGroup
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RadioButton
+            android:layout_marginRight="20dp"
+            android:id="@+id/rdbDebito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Débito"/>
+
+        <RadioButton
+            android:layout_marginLeft="20dp"
+            android:id="@+id/rdbCredito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credito" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:text="Banco emisor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_ok"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-black"
+        android:text="Guardar"
+        />
+
+
+</LinearLayout>
