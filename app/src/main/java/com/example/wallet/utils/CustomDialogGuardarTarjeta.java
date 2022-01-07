@@ -19,7 +19,13 @@ import com.example.wallet.bean.BancoEmisor;
 import com.example.wallet.bean.Credito;
 import com.example.wallet.bean.Debito;
 import com.example.wallet.bean.TarjetaBancaria;
+import com.example.wallet.clientservice.RetrofitApiFirebaseService;
+import com.example.wallet.clientservice.RetrofitClient;
 import com.example.wallet.persistencia.BaseSqlite;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CustomDialogGuardarTarjeta extends Dialog {
 
@@ -27,6 +33,7 @@ public class CustomDialogGuardarTarjeta extends Dialog {
     private RadioButton debito;
     private Spinner spinner;
     private BaseSqlite bd;
+    private RetrofitApiFirebaseService retrofitApiFirebaseService;
 
     private Button ok;
     private Activity ac;
@@ -49,6 +56,8 @@ public class CustomDialogGuardarTarjeta extends Dialog {
         this.debito.setChecked(true);
         this.spinner = findViewById(R.id.spinner);
 
+        retrofitApiFirebaseService = RetrofitClient.getApiFirebaseService();
+
         ArrayAdapter<String> mAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1,Util.getBancosEmisores());
 
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -63,6 +72,19 @@ public class CustomDialogGuardarTarjeta extends Dialog {
 
                 Debito tdb = new Debito(tarjeta,0);
                 long id=  bd.agregarTarjeta(tdb);
+
+                retrofitApiFirebaseService.registraWalletDebito("Banca",tdb).enqueue(new Callback<TarjetaBancaria>() {
+                    @Override
+                    public void onResponse(Call<TarjetaBancaria> call, Response<TarjetaBancaria> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<TarjetaBancaria> call, Throwable t) {
+
+                    }
+                });
+
                 if(id==-1){
                     Toast.makeText(getContext(),"Tarjeta Debito ingresada ya existe",Toast.LENGTH_SHORT).show();
                     dismiss();
