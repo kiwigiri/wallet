@@ -12,10 +12,13 @@ import com.example.wallet.bean.Credito;
 import com.example.wallet.bean.Debito;
 import com.example.wallet.bean.NombreTarjeta;
 import com.example.wallet.bean.TarjetaBancaria;
+import com.example.wallet.clientservice.RetrofitApiFirebaseService;
+import com.example.wallet.clientservice.RetrofitClient;
 import com.example.wallet.colecciones.Tarjetas;
 import com.example.wallet.persistencia.BaseSqlite;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.internal.LinkedTreeMap;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +32,15 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private ItemTouchHelper itemTouchHelper;
     LinkedList<TarjetaBancaria> tarjetaBancariaLinkedList;
     TarjetaAdapter tarjetaAdapter;
+    private RetrofitApiFirebaseService retrofitApiFirebaseService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +59,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        retrofitApiFirebaseService = RetrofitClient.getApiFirebaseService();
+
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
 
         BaseSqlite bs = new BaseSqlite(getApplicationContext());
-        Tarjetas tarjetas = bs.obtenerTarjetas();
+        Tarjetas tarjetas = new Tarjetas();
 
         tarjetaBancariaLinkedList = new LinkedList<>();
-        tarjetaBancariaLinkedList.addAll(tarjetas.getTarjetas());
+        //tarjetaBancariaLinkedList.addAll(tarjetas.getTarjetas());
 
         tarjetaAdapter = new TarjetaAdapter(tarjetaBancariaLinkedList);
 
@@ -72,6 +87,51 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),RegistrarTarjetaActivity.class);
             startActivityForResult(intent,0);
         });
+
+        retrofitApiFirebaseService.getWallets("Banca").enqueue(new Callback<HashMap<String, Object>>() {
+            @Override
+            public void onResponse(Call<HashMap<String, Object>> call, Response<HashMap<String, Object>> response) {
+
+                /*
+                Set set = response.body().entrySet();
+
+                Iterator it = set.iterator();
+
+                while(it.hasNext()){
+
+                    Map.Entry map  = (Map.Entry) it.next();
+
+                    /*
+                    System.out.println(map.getKey());
+                    System.out.println(map.getValue());
+
+                    LinkedTreeMap<String, Object> map2 = (LinkedTreeMap<String, Object>) map.getValue();
+
+                    System.out.println(map2.get("bancoEmisor"));
+
+                }*/
+
+                response.body().forEach(
+                        (k,v) -> {
+                            LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)v;
+                            System.out.println(map.get("bancoEmisor"));
+
+                            LinkedTreeMap<String, Object> map1 = (LinkedTreeMap<String, Object>)map.get("cliente");
+                            System.out.println(map1.get("nombre"));
+                        }
+                );
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<HashMap<String, Object>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     @Override

@@ -13,6 +13,7 @@ public class Tarjetas {
     public Tarjetas(ArrayList<TarjetaBancaria> tarjetas) {
         this.tarjetas = tarjetas;
     }
+
     public Tarjetas() {
         this.tarjetas = new ArrayList<>();
     }

@@ -73,14 +73,15 @@ public class CustomDialogGuardarTarjeta extends Dialog {
                 Debito tdb = new Debito(tarjeta,0);
                 long id=  bd.agregarTarjeta(tdb);
 
-                retrofitApiFirebaseService.registraWalletDebito("Banca",tdb).enqueue(new Callback<TarjetaBancaria>() {
+                retrofitApiFirebaseService.registraWalletDebito("Banca",tdb).enqueue(new Callback<MensajePostResponse>() {
                     @Override
-                    public void onResponse(Call<TarjetaBancaria> call, Response<TarjetaBancaria> response) {
-
+                    public void onResponse(Call<MensajePostResponse> call, Response<MensajePostResponse> response) {
+                        MensajePostResponse mensaje = response.body();
+                        Toast.makeText(getContext(),mensaje.toString(),Toast.LENGTH_LONG).show();
                     }
 
                     @Override
-                    public void onFailure(Call<TarjetaBancaria> call, Throwable t) {
+                    public void onFailure(Call<MensajePostResponse> call, Throwable t) {
 
                     }
                 });
@@ -99,6 +100,19 @@ public class CustomDialogGuardarTarjeta extends Dialog {
             }else {
                 Credito tdc = new Credito(tarjeta,0.0,0.0);
                 long id=  bd.agregarTarjeta(new Credito(tarjeta,0.0,0.0));
+
+                retrofitApiFirebaseService.registraWalletCredito("Banca",tdc).enqueue(new Callback<MensajePostResponse>() {
+                    @Override
+                    public void onResponse(Call<MensajePostResponse> call, Response<MensajePostResponse> response) {
+                        MensajePostResponse mensaje = response.body();
+                        Toast.makeText(getContext(),mensaje.toString(),Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<MensajePostResponse> call, Throwable t) {
+
+                    }
+                });
                 if(id==-1){
                     Toast.makeText(getContext(),"Tarjeta Credito ingresada ya existe",Toast.LENGTH_SHORT).show();
                     dismiss();
