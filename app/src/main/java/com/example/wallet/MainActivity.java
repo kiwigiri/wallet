@@ -129,23 +129,25 @@ public class MainActivity extends AppCompatActivity {
                             LinkedTreeMap<String, Object> map1 = (LinkedTreeMap<String, Object>)map.get("fecha");
                             Fecha fecha = new Fecha((String)map1.get("mes"), (String) map1.get("anio"));
 
-                            LinkedTreeMap<String, Object> map1 = (LinkedTreeMap<String, Object>)map.get("cliente");
-                            Cliente cliente = new Cliente((int)(double)map1.get("rut"), (String) map1.get("nombre"));
+                            LinkedTreeMap<String, Object> map2 = (LinkedTreeMap<String, Object>)map.get("cliente");
+                            Cliente cliente = new Cliente((int)(double)map2.get("rut"), (String) map2.get("nombre"));
 
-                            
+                            TarjetaBancaria tb = new TarjetaBancaria(nIdentificador,numTarjeta,bancoEmisor,cliente,favorite,cv,fecha,nombreTarjeta);
 
                             if (map.get("saldo")!=null){
                                 double saldo = (double)map.get("saldo");
+                                tarjetaBancariaLinkedList.addFirst(new Debito(tb, saldo));
                             }
                             else{
                                 double cupoNacional = (double)map.get("cupoNacional");;
                                 double gastoNacional = (double)map.get("gastoNacional");
+                                tarjetaBancariaLinkedList.addFirst(new Credito(tb, cupoNacional, gastoNacional));
                             }
 
                         }
                 );
 
-
+                tarjetaAdapter.notifyDataSetChanged();
 
             }
 
@@ -153,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<HashMap<String, Object>> call, Throwable t) {
 
             }
+
+
         });
 
 
