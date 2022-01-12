@@ -17,6 +17,7 @@ import com.example.wallet.clientservice.RetrofitApiFirebaseService;
 import com.example.wallet.clientservice.RetrofitClient;
 import com.example.wallet.colecciones.Tarjetas;
 import com.example.wallet.persistencia.BaseSqlite;
+import com.example.wallet.persistencia.Firebase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.internal.LinkedTreeMap;
@@ -64,15 +65,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
 
-        BaseSqlite bs = new BaseSqlite(getApplicationContext());
+        //BaseSqlite bs = new BaseSqlite(getApplicationContext());
+        //Firebase fb = new Firebase(retrofitApiFirebaseService);
         //Tarjetas tarjetas = bs.obtenerTarjetas();
+        //Tarjetas tarjetas = fb.obtenerTarjetas();;
         Tarjetas tarjetas = new Tarjetas();
 
-
         tarjetaBancariaLinkedList = new LinkedList<>();
-        //tarjetaBancariaLinkedList.addAll(tarjetas.getTarjetas());
+        tarjetaBancariaLinkedList.addAll(tarjetas.getTarjetas());
 
         tarjetaAdapter = new TarjetaAdapter(tarjetaBancariaLinkedList);
+
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(tarjetaAdapter);
